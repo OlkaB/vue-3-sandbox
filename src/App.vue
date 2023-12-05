@@ -1,18 +1,21 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router';
+import { RouteNames } from '@/router/RouteNames';
 </script>
 
 <template>
   <header>
     <div class="wrapper">
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <RouterLink :to="{ name: RouteNames.HOME }">Home</RouterLink>
+        <RouterLink :to="{ name: RouteNames.PEOPLE }">Test me</RouterLink>
       </nav>
     </div>
   </header>
 
-  <RouterView />
+  <main>
+    <RouterView />
+  </main>
 </template>
 
 <style scoped>
@@ -32,5 +35,9 @@ nav a {
 
 nav a:first-of-type {
   border: 0;
+}
+
+main {
+  margin-top: 2rem;
 }
 </style>
