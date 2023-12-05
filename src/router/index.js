@@ -3,7 +3,7 @@ import HomeView from '../views/HomeView.vue';
 import { RouteNames } from './RouteNames';
 
 const PeopleView = () => import('../views/PeopleView.vue');
-const PersonEdit = () => import('../views/PeopleView.vue');
+const PersonEdit = () => import('../views/PersonEdit.vue');
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
