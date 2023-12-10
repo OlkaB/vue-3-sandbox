@@ -10,7 +10,6 @@ const isLoadingPeople = ref(false);
 const getDefaultRating = () => getRandomNumberInRange(RATING_MIN, RATING_MAX);
 
 export function usePeople() {
-
   const getPeopleList = () => {
     isLoadingPeople.value = true;
 
@@ -25,15 +24,15 @@ export function usePeople() {
         }));
       })
       .catch((err) => (getPeopleError.value = err))
-      .finally(() => isLoadingPeople.value = false);
+      .finally(() => (isLoadingPeople.value = false));
   };
 
   const getPersonById = (personId) => {
-    return people.value.find(({id}) => id === personId);
+    return people.value.find(({ id }) => id === personId);
   };
 
   const getPersonIndexById = (personId) => {
-    return people.value.findIndex(({id}) => id === personId);
+    return people.value.findIndex(({ id }) => id === personId);
   };
 
   const deletePersonById = (personId) => {

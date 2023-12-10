@@ -4,6 +4,7 @@ import { RouteNames } from './RouteNames';
 
 const PeopleView = () => import('../views/PeopleView.vue');
 const PersonEdit = () => import('../views/PersonEdit.vue');
+const PersonAdd  = () => import('../views/PersonAdd.vue');
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,6 +19,11 @@ const router = createRouter({
       name: RouteNames.PEOPLE,
       component: PeopleView,
       children: [
+        {
+          path: 'add-person',
+          name: RouteNames.PERSON_ADD,
+          component: PersonAdd,
+        },
         {
           path: ':personId/edit',
           name: RouteNames.PERSON_EDIT,

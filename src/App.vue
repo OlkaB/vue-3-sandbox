@@ -7,8 +7,12 @@ import { RouteNames } from '@/router/RouteNames';
   <header>
     <div class="wrapper">
       <nav>
-        <RouterLink :to="{ name: RouteNames.HOME }">Home</RouterLink>
-        <RouterLink :to="{ name: RouteNames.PEOPLE }">Test me</RouterLink>
+        <RouterLink :to="{ name: RouteNames.HOME }">
+          Home
+        </RouterLink>
+        <RouterLink :to="{ name: RouteNames.PEOPLE }">
+          Test me
+        </RouterLink>
       </nav>
     </div>
   </header>

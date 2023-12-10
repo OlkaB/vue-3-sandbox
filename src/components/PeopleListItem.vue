@@ -78,6 +78,6 @@ const deletePersonById = inject('deletePersonById');
 
 .action-btn {
   width: 100%;
-  height: 2.5rem;
+
 }
 </style>

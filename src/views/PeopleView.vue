@@ -3,6 +3,19 @@
     :people="people"
     :is-loading="isLoadingPeople"
   />
+
+  <RouterLink
+    :to="{ name: RouteNames.PERSON_ADD }"
+    class="add-person"
+  >
+    <button
+      type="button"
+      class="action-btn"
+    >
+      Add person
+    </button>
+  </RouterLink>
+
   <RouterView />
 </template>
 
@@ -10,7 +23,8 @@
 import { RouterView } from 'vue-router';
 import PeopleList from '@/components/PeopleList.vue';
 import { usePeople } from '@/composables/usePeople';
-import { onMounted, provide } from 'vue';
+import { provide } from 'vue';
+import { RouteNames } from '@/router/RouteNames';
 
 const {
   getPeopleList,
@@ -24,9 +38,11 @@ provide('rateItem', ratePerson);
 provide('deletePersonById', deletePersonById);
 
 getPeopleList();
-console.log('%c People view setup', 'background: #222; color: #bada55');
-
-onMounted(() => {
- console.log('%c People view onMounted', 'background: #222; color: #bada55');
-});
 </script>
+
+<style scoped>
+.add-person {
+  display: inline-block;
+  margin-top: 2.5rem;
+}
+</style>
