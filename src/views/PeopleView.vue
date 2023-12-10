@@ -17,9 +17,11 @@ const {
   people,
   isLoadingPeople,
   ratePerson,
+  deletePersonById,
 } = usePeople();
 
 provide('rateItem', ratePerson);
+provide('deletePersonById', deletePersonById);
 
 getPeopleList();
 console.log('%c People view setup', 'background: #222; color: #bada55');

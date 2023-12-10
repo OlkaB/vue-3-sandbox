@@ -32,6 +32,15 @@ export function usePeople() {
     return people.value.find(({id}) => id === personId);
   };
 
+  const getPersonIndexById = (personId) => {
+    return people.value.findIndex(({id}) => id === personId);
+  };
+
+  const deletePersonById = (personId) => {
+    const personIndex = getPersonIndexById(personId);
+    return people.value.splice(personIndex, 1);
+  };
+
   const ratePerson = (personId, rating) => {
     const person = getPersonById(personId);
     person.rating = rating;
@@ -43,6 +52,7 @@ export function usePeople() {
     isLoadingPeople,
     getPeopleList,
     getPersonById,
+    deletePersonById,
     ratePerson,
   };
 }

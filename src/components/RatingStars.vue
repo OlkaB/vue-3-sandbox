@@ -1,5 +1,9 @@
 <template>
   <div class="rating-stars">
+    <span class="rating-text">
+      Rating: ({{ rating }}/{{ RATING_MAX }})
+    </span>
+
     <div
       v-for="index in RATING_ITERATIONS"
       :key="index"
@@ -43,6 +47,11 @@ function rateItem (ratingToAdd) {
 <style scoped>
 .rating-stars {
   display: flex;
+  align-items: center;
+}
+
+.rating-text {
+  font-size: .75rem;
 }
 
 .star {

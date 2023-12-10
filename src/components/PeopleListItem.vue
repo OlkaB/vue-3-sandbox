@@ -7,19 +7,18 @@
 
       <RatingStars
         :rating="person.rating"
-        @rate-item="ratePersonProxy"
+        @rate-item="$event => ratePerson(person.id, $event)"
       />
     </div>
 
     <div class="actions">
-      <RouterLink :to="{ name: RouteNames.PEOPLE }">
-        <button
-          type="button"
-          class="action-btn"
-        >
-          Cancel
-        </button>
-      </RouterLink>
+      <button
+        type="button"
+        class="action-btn"
+        @click="deletePersonById(person.id)"
+      >
+        Delete
+      </button>
 
 
       <RouterLink
@@ -47,7 +46,7 @@ import { RouteNames } from '@/router/RouteNames';
 import RatingStars from './RatingStars.vue';
 import { inject } from 'vue';
 
-const props = defineProps({
+defineProps({
   person: {
     type: Object,
     default: () => ({}),
@@ -55,10 +54,7 @@ const props = defineProps({
 });
 
 const ratePerson = inject('rateItem');
-
-function ratePersonProxy(rating) {
-  ratePerson(props.person.id, rating);
-}
+const deletePersonById = inject('deletePersonById');
 </script>
 
 <style scoped>
