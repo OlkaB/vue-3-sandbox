@@ -6,30 +6,17 @@
     Please wait, loading data...
   </div>
 
-  <template v-else>
-    <div
+  <div v-else class="people-list">
+    <PeopleListItem
       v-for="person in people"
       :key="person.id"
-      class="person-item"
-    >
-      {{ person.id }}. {{ person.name }}
-      <RouterLink
-        :to="{
-          name: RouteNames.PERSON_EDIT,
-          params: {
-            personId: person.id
-          }
-        }"
-      >
-        <button type="button">Edit</button>
-      </RouterLink>
-    </div>
-  </template>
+      :person="person"
+    />
+  </div>
 </template>
 
 <script setup>
-import { RouterLink } from 'vue-router';
-import { RouteNames } from '@/router/RouteNames';
+import PeopleListItem from './PeopleListItem.vue';
 
 defineProps({
   people: {
@@ -41,6 +28,12 @@ defineProps({
 </script>
 
 <style>
+.people-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
 .loading-skeleton {
   font-size: 1.25rem;
 }
