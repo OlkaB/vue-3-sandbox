@@ -45,6 +45,11 @@ export function usePeople() {
     person.rating = rating;
   };
 
+  const updatePerson = (personId, personData) => {
+    const personIndex = getPersonIndexById(personId);
+    people.value[personIndex] = personData;
+  };
+
   return {
     people,
     getPeopleError,
@@ -53,5 +58,6 @@ export function usePeople() {
     getPersonById,
     deletePersonById,
     ratePerson,
+    updatePerson,
   };
 }

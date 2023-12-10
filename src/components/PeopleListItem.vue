@@ -5,6 +5,10 @@
         {{ person.name }}
       </div>
 
+      <div>
+        Height:  {{ person.height }} cm
+      </div>
+
       <RatingStars
         :rating="person.rating"
         @rate-item="$event => ratePerson(person.id, $event)"
