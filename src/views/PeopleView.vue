@@ -34,6 +34,7 @@ const {
   deletePersonById,
 } = usePeople();
 
+// w ponizszych funkcjach zamiast metod ze stora najpierw uzyj API call i potem operuj adekwatnie na storze
 provide('rateItem', ratePerson);
 provide('deletePersonById', deletePersonById);
 
