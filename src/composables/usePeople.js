@@ -35,6 +35,20 @@ export function usePeople() {
     return people.value.findIndex(({ id }) => id === personId);
   };
 
+  const createPerson = (personData) => {
+    // id would come from API - assign some temp one
+    const id = Date.now();
+    people.value.push({
+      ...personData,
+      id,
+    });
+  };
+
+  const updatePerson = (personId, personData) => {
+    const personIndex = getPersonIndexById(personId);
+    people.value[personIndex] = personData;
+  };
+
   const deletePersonById = (personId) => {
     const personIndex = getPersonIndexById(personId);
     return people.value.splice(personIndex, 1);
@@ -43,11 +57,6 @@ export function usePeople() {
   const ratePerson = (personId, rating) => {
     const person = getPersonById(personId);
     person.rating = rating;
-  };
-
-  const updatePerson = (personId, personData) => {
-    const personIndex = getPersonIndexById(personId);
-    people.value[personIndex] = personData;
   };
 
   return {
@@ -59,5 +68,6 @@ export function usePeople() {
     deletePersonById,
     ratePerson,
     updatePerson,
+    createPerson,
   };
 }

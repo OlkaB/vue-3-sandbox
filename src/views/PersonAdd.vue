@@ -1,56 +1,51 @@
 <template>
-  <PageOverlay />
-
-  <div class="person-edit">
-    <h2>Edit person</h2>
-
-    <input
-      v-model="personToEdit.name"
+  <PersonForm
+    :person="personToEdit"
+    title="Edit person"
+    @update-person-field="onPersonUpdate"
+  >
+    <button
+      type="button"
+      @click="onCloseEdit"
     >
-    <br><br>
-    <RouterLink :to="{ name: RouteNames.PEOPLE }">
-      <button type="button">
-        Close
-      </button>
-    </RouterLink>
-  </div>
+      Close
+    </button>
+
+    <button
+      type="button"
+      @click="onCreatePerson"
+    >
+      Create
+    </button>
+  </PersonForm>
 </template>
 
 <script setup>
-import { RouterLink, useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { usePeople } from '@/composables/usePeople';
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { RouteNames } from '@/router/RouteNames';
-import PageOverlay from '@/components/PageOverlay.vue';
+import PersonForm from '@/components/PersonForm.vue';
 
-const route = useRoute();
-const { getPersonById } = usePeople();
-const personToEdit = ref({});
+const router = useRouter();
+const { createPerson } = usePeople();
+const personToEdit = ref({
+  // TODO create Person class and instantiate
+  name: '',
+  height: '',
+});
 
-watch(
-  () => route.params.personId,
-  async (personId) => {
-    const person = getPersonById(Number(personId));
-    if(!person) return;
-    personToEdit.value = {...person};
-  },
-  { immediate: true },
-);
 
-</script>
-
-<style scoped>
-.person-edit {
-   position: absolute;
-   top: 50%;
-   right: 50%;
-   transform: translate(50%, -50%);
-   width: 20rem;
-   height: 10rem;
-   border: 1px solid;
-   box-shadow: 3px 3px 5px rgba(122,122,122,.5);
-   padding: 1rem;
-   z-index: 100;
-   background-color: white;
+function onCloseEdit () {
+  router.push({ name: RouteNames.PEOPLE });
 }
-</style>
+
+function onPersonUpdate(fieldName, fieldValue) {
+  personToEdit.value[fieldName] = fieldValue;
+}
+
+function onCreatePerson() {
+  createPerson(personToEdit.value);
+  onCloseEdit();
+}
+</script>
