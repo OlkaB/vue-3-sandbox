@@ -23,20 +23,14 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { usePeople } from '@/composables/usePeople';
-import { ref } from 'vue';
 import { RouteNames } from '@/router/RouteNames';
 import PersonForm from '@/components/PersonForm.vue';
+import { onBeforeUnmount } from 'vue';
 
 const router = useRouter();
-const { createPerson } = usePeople();
-const personToEdit = ref({
-  // TODO create Person class and instantiate
-  name: '',
-  height: '',
-});
+const { personToEdit, resetPersonToEdit, createPerson } = usePeople();
 
-
-function onCloseEdit () {
+function onCloseEdit() {
   router.push({ name: RouteNames.PEOPLE });
 }
 
@@ -45,7 +39,12 @@ function onPersonUpdate(fieldName, fieldValue) {
 }
 
 function onCreatePerson() {
+  // Add API call, when successful pass response to store instead of personToEdit.value, add loading state and disable save button on request processing
   createPerson(personToEdit.value);
   onCloseEdit();
 }
+
+onBeforeUnmount(() => {
+  resetPersonToEdit();
+});
 </script>

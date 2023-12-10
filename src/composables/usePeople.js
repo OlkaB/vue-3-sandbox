@@ -2,10 +2,12 @@ import { ref } from 'vue';
 import { PeopleApiUrls } from '@/api/PeopleApiUrls';
 import { getRandomNumberInRange } from '@/utils/getRandomNumberInRange';
 import { RATING_MAX, RATING_MIN } from '@/constants/RatingRange';
+import { Person } from '@/dataModels/Person';
 
 const people = ref([]);
 const getPeopleError = ref(null);
 const isLoadingPeople = ref(false);
+const personToEdit = ref(new Person());
 
 const getDefaultRating = () => getRandomNumberInRange(RATING_MIN, RATING_MAX);
 
@@ -59,6 +61,14 @@ export function usePeople() {
     person.rating = rating;
   };
 
+  const initPersonToEdit = (personData = new Person()) => {
+    personToEdit.value = personData;
+  };
+
+  const resetPersonToEdit = () => {
+    personToEdit.value = new Person();
+  };
+
   return {
     people,
     getPeopleError,
@@ -69,5 +79,8 @@ export function usePeople() {
     ratePerson,
     updatePerson,
     createPerson,
+    personToEdit,
+    initPersonToEdit,
+    resetPersonToEdit,
   };
 }

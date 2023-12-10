@@ -23,21 +23,26 @@
 <script setup>
 import { useRouter, useRoute } from 'vue-router';
 import { usePeople } from '@/composables/usePeople';
-import { ref, watch } from 'vue';
+import { onBeforeUnmount, watch } from 'vue';
 import { RouteNames } from '@/router/RouteNames';
 import PersonForm from '@/components/PersonForm.vue';
 
 const route = useRoute();
 const router = useRouter();
-const { getPersonById, updatePerson } = usePeople();
-const personToEdit = ref({});
+const {
+  personToEdit,
+  initPersonToEdit,
+  resetPersonToEdit,
+  getPersonById,
+  updatePerson,
+} = usePeople();
 
 watch(
   () => route.params.personId,
   async (personId) => {
     const person = getPersonById(Number(personId));
     if (!person) return;
-    personToEdit.value = { ...person };
+    initPersonToEdit({ ...person });
   },
   { immediate: true },
 );
@@ -51,7 +56,12 @@ function onPersonUpdate(fieldName, fieldValue) {
 }
 
 function onUpdatePerson() {
+  // Add API call, when successful pass response to store instead of personToEdit.value, add loading state and disable update button on request processing
   updatePerson(personToEdit.value.id, personToEdit.value);
   onCloseEdit();
 }
+
+onBeforeUnmount(() => {
+  resetPersonToEdit();
+});
 </script>
